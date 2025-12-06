@@ -245,7 +245,22 @@
             document.getElementById('product-image').textContent = product.emoji;
             document.getElementById('breadcrumb-product').textContent = product.name;
 
-            // GA4 view_item event will be triggered here in Step 2
+            // Push view_item event to dataLayer for GA4
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'view_item',
+                ecommerce: {
+                    currency: 'USD',
+                    value: product.price,
+                    items: [{
+                        item_id: product.id,
+                        item_name: product.name,
+                        price: product.price,
+                        item_category: product.category,
+                        quantity: 1
+                    }]
+                }
+            });
             console.log('Product viewed:', product);
         }
 
@@ -259,7 +274,22 @@
             };
             localStorage.setItem('cart', JSON.stringify(cartItem));
 
-            // GA4 add_to_cart event will be triggered here in Step 2
+            // Push add_to_cart event to dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'add_to_cart',
+                ecommerce: {
+                    currency: 'USD',
+                    value: product.price * quantity,
+                    items: [{
+                        item_id: product.id,
+                        item_name: product.name,
+                        price: product.price,
+                        item_category: product.category,
+                        quantity: parseInt(quantity)
+                    }]
+                }
+            });
             console.log('Added to cart:', cartItem);
             
             alert(`Added ${quantity} x ${product.name} to cart!`);

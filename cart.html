@@ -233,7 +233,22 @@
                 </div>
             `;
 
-            // GA4 view_cart event will be triggered here in Step 2
+            // Push view_cart event to dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'view_cart',
+                ecommerce: {
+                    currency: 'USD',
+                    value: subtotal,
+                    items: [{
+                        item_id: item.id,
+                        item_name: item.name,
+                        price: item.price,
+                        item_category: item.category,
+                        quantity: item.quantity
+                    }]
+                }
+            });
             console.log('Cart viewed:', { item, subtotal, tax, total });
         } else {
             // Empty cart
@@ -246,8 +261,25 @@
         }
 
         function proceedToCheckout() {
-            // GA4 begin_checkout event will be triggered here in Step 2
             const item = JSON.parse(localStorage.getItem('cart'));
+            const subtotal = item.price * item.quantity;
+            
+            // Push begin_checkout event to dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'begin_checkout',
+                ecommerce: {
+                    currency: 'USD',
+                    value: subtotal,
+                    items: [{
+                        item_id: item.id,
+                        item_name: item.name,
+                        price: item.price,
+                        item_category: item.category,
+                        quantity: item.quantity
+                    }]
+                }
+            });
             console.log('Proceeding to checkout:', item);
             
             window.location.href = 'checkout.html';

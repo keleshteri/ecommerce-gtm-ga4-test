@@ -188,7 +188,7 @@
                 </div>
             `;
 
-            // GA4 purchase event will be triggered here in Step 2
+            // Push purchase event to dataLayer
             const purchaseData = {
                 transaction_id: orderNumber,
                 value: total,
@@ -202,6 +202,12 @@
                     category: order.category
                 }]
             };
+            
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'purchase',
+                ecommerce: purchaseData
+            });
             
             console.log('Purchase completed - Thank you page:', purchaseData);
             
