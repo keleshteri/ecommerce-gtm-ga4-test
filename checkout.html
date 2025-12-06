@@ -268,7 +268,7 @@
         
         if (cartData) {
             const item = JSON.parse(cartData);
-            const subtotal = item.price * item.quantity;
+            const subtotal = parseFloat(item.price) * parseInt(item.quantity);
             const tax = subtotal * 0.1;
             const total = subtotal + tax;
 
@@ -279,7 +279,7 @@
                         <h4>${item.name}</h4>
                         <p>Quantity: ${item.quantity}</p>
                     </div>
-                    <div>$${(item.price * item.quantity).toFixed(2)}</div>
+                    <div>$${(parseFloat(item.price) * parseInt(item.quantity)).toFixed(2)}</div>
                 </div>
             `;
             
@@ -311,7 +311,7 @@
                 
                 // Calculate totals
                 const item = JSON.parse(localStorage.getItem('cart'));
-                const subtotal = item.price * item.quantity;
+                const subtotal = parseFloat(item.price) * parseInt(item.quantity);
                 const tax = subtotal * 0.1;
                 const total = subtotal + tax;
 

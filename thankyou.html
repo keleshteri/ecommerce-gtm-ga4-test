@@ -148,7 +148,7 @@
         
         if (orderData) {
             const order = JSON.parse(orderData);
-            const subtotal = order.price * order.quantity;
+            const subtotal = parseFloat(order.price) * parseInt(order.quantity);
             const tax = subtotal * 0.1;
             const total = subtotal + tax;
 
@@ -172,7 +172,7 @@
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Price:</span>
-                    <span class="detail-value">$${order.price.toFixed(2)}</span>
+                    <span class="detail-value">$${parseFloat(order.price).toFixed(2)}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Subtotal:</span>

@@ -194,7 +194,7 @@
 
         if (cartData) {
             const item = JSON.parse(cartData);
-            const subtotal = item.price * item.quantity;
+            const subtotal = parseFloat(item.price) * parseInt(item.quantity);
             const tax = subtotal * 0.1; // 10% tax
             const total = subtotal + tax;
 
@@ -207,7 +207,7 @@
                         <p>SKU: ${item.id}</p>
                         <p>Category: ${item.category}</p>
                     </div>
-                    <div class="item-price">$${item.price.toFixed(2)}</div>
+                    <div class="item-price">$${parseFloat(item.price).toFixed(2)}</div>
                     <div class="item-quantity">Qty: ${item.quantity}</div>
                     <div class="item-total">$${subtotal.toFixed(2)}</div>
                 </div>
@@ -262,7 +262,7 @@
 
         function proceedToCheckout() {
             const item = JSON.parse(localStorage.getItem('cart'));
-            const subtotal = item.price * item.quantity;
+            const subtotal = parseFloat(item.price) * parseInt(item.quantity);
             
             // Push begin_checkout event to dataLayer
             window.dataLayer = window.dataLayer || [];
